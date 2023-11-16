@@ -2,6 +2,7 @@
 using HCMUT_SSPS.Models;
 using HCMUT_SSPS.ViewModels.ResultView;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HCMUT_SSPS.Repository
 {
@@ -15,7 +16,7 @@ namespace HCMUT_SSPS.Repository
 
         
 
-        public async Task<ResultViewModel> GetFileTypes(string keyword = "", int page = 1, int per_page = 6)
+        public async Task<ResultViewModel> GetFileTypes(string? keyword = "", int page = 1, int per_page = 6)
         {
             ResultViewModel model = new ResultViewModel();
 
@@ -88,9 +89,23 @@ namespace HCMUT_SSPS.Repository
             return model;
         }
 
-        public Task<ResultViewModel> DeleteFileType()
+        public async Task<ResultViewModel> DeleteFileType(Guid id)
         {
-            throw new NotImplementedException();
+            ResultViewModel model = new ResultViewModel();
+            try
+            {
+                var fileType = await _context.TblFileTypes.Where(d => d.Id == id).FirstOrDefaultAsync();
+
+                fileType.IsDelete = true;
+                await _context.SaveChangesAsync();
+                model.response = fileType;
+            }
+            catch (Exception ex)
+            {
+                model.status = 0;
+                model.message = "lỗi phát sinh " + ex.Message.ToString();
+            }
+            return model;
         }
     }
 }

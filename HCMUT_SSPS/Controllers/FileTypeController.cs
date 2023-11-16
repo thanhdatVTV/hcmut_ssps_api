@@ -22,7 +22,7 @@ namespace HCMUT_SSPS.Controllers
 
         [HttpGet]
         [Route("get-list-file-type")]
-        public async Task<IActionResult> GetFileTypes(string keyword = "", int pageNumber = 1, int per_page = 6)
+        public async Task<IActionResult> GetFileTypes(string? keyword = "", int pageNumber = 1, int per_page = 6)
         {
             ResultViewModel Result = new ResultViewModel();
             Result = await _fileTypeRepository.GetFileTypes(keyword, pageNumber, per_page);
@@ -50,6 +50,16 @@ namespace HCMUT_SSPS.Controllers
             ResultViewModel Result = new ResultViewModel();
             //_logger.LogInformation($"Create customers");
             Result = await _fileTypeRepository.UpdateFileType(id, typeName);
+            return Ok(Result);
+        }
+
+        [HttpPost]
+        [Route("delete-file-type")]
+        public async Task<IActionResult> DeleteFileType(Guid id)
+        {
+            ResultViewModel Result = new ResultViewModel();
+            //_logger.LogInformation($"Create customers");
+            Result = await _fileTypeRepository.DeleteFileType(id);
             return Ok(Result);
         }
     }
