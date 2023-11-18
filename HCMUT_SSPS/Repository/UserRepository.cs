@@ -15,7 +15,7 @@ namespace HCMUT_SSPS.Repository
 
         
 
-        public async Task<ResultViewModel> GetUsers(string keyword = "", int page = 1, int per_page = 6)
+        public async Task<ResultViewModel> GetUsers (string? keyword, int page = 1, int per_page = 6)
         {
             ResultViewModel model = new ResultViewModel();
 
@@ -23,31 +23,17 @@ namespace HCMUT_SSPS.Repository
             {
                 UserResponseViewModel lstUserViewModel = new UserResponseViewModel();
 
-                //var query = from u in _context.TblUsers select u;
-
-                //if (keyword != "" && keyword != null)
-                //    query = query.Where(u => u.FullName.Contains(keyword));
-
-                ////lstUserViewModel.Total = query.ToArray().Count();
-
-                //query = query.Skip(per_page * (page - 1)).Take(per_page);
-
-                //var results = query.Select(u => new ResponseUserModel
-                //{
-                //    LastName = u.LastName,
-                //    FirstName = u.FirstName,
-                //    Fullname = u.FullName,
-                //    DateOfBirth = u.DateOfBirth,
-                //    Type = (int)u.Type,
-                //    CourseName = u.CourseName,
-                //    FacultyName = u.FacultyName
-                //}).ToList();
-
-                //lstUserViewModel.Page = page;
-                //lstUserViewModel.PerPage = per_page;
-                //lstUserViewModel.TotalPages = lstUserViewModel.Total / per_page;
-
                 var query = await _context.TblUsers.ToListAsync();
+
+                if (keyword != null && keyword != "")
+                {
+                    query = query.Where(u => u.FullName.Contains(keyword)).ToList();
+                }
+
+                lstUserViewModel.Total = query.Count();
+                lstUserViewModel.Page = page;
+                lstUserViewModel.PerPage = per_page;
+                lstUserViewModel.TotalPages = lstUserViewModel.Total / per_page;
 
                 var results = query.Select(u => new ResponseUserModel
                 {

@@ -19,6 +19,8 @@ public partial class HcmutSspsContext : DbContext
 
     public virtual DbSet<TblLogLogin> TblLogLogins { get; set; }
 
+    public virtual DbSet<TblPageSize> TblPageSizes { get; set; }
+
     public virtual DbSet<TblRole> TblRoles { get; set; }
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
@@ -27,13 +29,13 @@ public partial class HcmutSspsContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-7C8APNQ;Database=HCMUT_SSPS;Trusted_Connection=true;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=Phuong;Database=HCMUT_SSPS;Trusted_Connection=true;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblFileType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tbl_File__3214EC07EDE15279");
+            entity.HasKey(e => e.Id).HasName("PK__tbl_File__3214EC0723AB1C91");
 
             entity.ToTable("tbl_FileType");
 
@@ -52,6 +54,15 @@ public partial class HcmutSspsContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.DateCreated).HasColumnType("datetime");
             entity.Property(e => e.DateUpdated).HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<TblPageSize>(entity =>
+        {
+            entity.ToTable("tbl_PageSize");
+
+            entity.Property(e => e.DateCreated).HasColumnType("datetime");
+            entity.Property(e => e.DateUpdated).HasColumnType("datetime");
+            entity.Property(e => e.PageSizeName).HasMaxLength(10);
         });
 
         modelBuilder.Entity<TblRole>(entity =>

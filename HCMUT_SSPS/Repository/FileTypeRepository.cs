@@ -32,6 +32,11 @@ namespace HCMUT_SSPS.Repository
                     TypeName = u.TypeName
                 }).ToList();
 
+                listFileTypeViewModel.Total = query.Count();
+                listFileTypeViewModel.Page = page;
+                listFileTypeViewModel.PerPage = per_page;
+                listFileTypeViewModel.TotalPages = listFileTypeViewModel.Total / per_page;
+
                 listFileTypeViewModel.FileTypes = results;
 
                 model.status = 1;

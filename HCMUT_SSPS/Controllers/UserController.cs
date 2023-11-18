@@ -56,7 +56,7 @@ namespace HCMUT_SSPS.Controllers
 
         [HttpGet]
         [Route("get-list-user")]
-        public async Task<IActionResult> GetListUsers(string keyword = "", int pageNumber = 1, int per_page = 6)
+        public async Task<IActionResult> GetListUsers(string? keyword, int pageNumber = 1, int per_page = 6)
         {
             ResultViewModel Result = new ResultViewModel();
             Result = await _userRepository.GetUsers(keyword, pageNumber, per_page);
