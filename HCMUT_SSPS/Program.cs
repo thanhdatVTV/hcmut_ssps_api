@@ -1,5 +1,6 @@
 using HCMUT_SSPS.Interfaces;
 using HCMUT_SSPS.Models;
+using HCMUT_SSPS.Repositories;
 using HCMUT_SSPS.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFileTypeRepository, FileTypeRepository>();
 builder.Services.AddScoped<IPageSizeRepository, PageSizeRepository>();
+builder.Services.AddScoped<IPrinterRepository, PrinterRepository>();
 builder.Services.AddCors(p => p.AddPolicy("MyCors", build =>
 {
     //build.WithOrigins("http://localhost:3000/");
