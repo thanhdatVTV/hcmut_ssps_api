@@ -15,20 +15,20 @@ namespace HCMUT_SSPS.Controllers
             _printerRepository = printerRepository;
         }
 
-        [HttpGet]
-        [Route("get-list-printer")]
-        public async Task<IActionResult> GetListPrinters(string? keyword, int pageNumber = 1, int per_page = 6)
-        {
-            ResultViewModel result = new ResultViewModel();
-            result = await _printerRepository.GetPrinters(keyword, pageNumber, per_page);
+        //[HttpGet]
+        //[Route("get-list-printer")]
+        //public async Task<IActionResult> GetListPrinters(string? keyword, int pageNumber = 1, int per_page = 6)
+        //{
+        //    ResultViewModel result = new ResultViewModel();
+        //    result = await _printerRepository.GetPrinters(keyword, pageNumber, per_page);
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
         [HttpPost]
         [Route("create-printer")]

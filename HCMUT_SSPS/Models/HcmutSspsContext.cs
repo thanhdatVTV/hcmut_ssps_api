@@ -21,6 +21,8 @@ public partial class HcmutSspsContext : DbContext
 
     public virtual DbSet<TblPageSize> TblPageSizes { get; set; }
 
+    public virtual DbSet<TblPrinter> TblPrinters { get; set; }
+
     public virtual DbSet<TblRole> TblRoles { get; set; }
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
@@ -63,6 +65,18 @@ public partial class HcmutSspsContext : DbContext
             entity.Property(e => e.DateCreated).HasColumnType("datetime");
             entity.Property(e => e.DateUpdated).HasColumnType("datetime");
             entity.Property(e => e.PageSizeName).HasMaxLength(10);
+        });
+
+        modelBuilder.Entity<TblPrinter>(entity =>
+        {
+            entity.ToTable("tbl_Printer");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Brand).HasMaxLength(250);
+            entity.Property(e => e.DataCreated).HasColumnType("datetime");
+            entity.Property(e => e.DateUpdated).HasColumnType("datetime");
+            entity.Property(e => e.Description).HasMaxLength(250);
+            entity.Property(e => e.Model).HasMaxLength(250);
         });
 
         modelBuilder.Entity<TblRole>(entity =>

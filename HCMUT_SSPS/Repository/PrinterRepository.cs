@@ -72,7 +72,7 @@ namespace HCMUT_SSPS.Repositories
             _dbContext.TblPrinters.Add(newPrinter);
             await _dbContext.SaveChangesAsync();
 
-            return new ResultViewModel { Success = true, message = "Máy in được thêm mới thành công." };
+            return new ResultViewModel { message = "Máy in được thêm mới thành công." };
         }
 
         public async Task<ResultViewModel> UpdatePrinter(Guid id, string brand, string model, string description, int locationId, int status)
@@ -81,7 +81,7 @@ namespace HCMUT_SSPS.Repositories
 
             if (printerToUpdate == null)
             {
-                return new ResultViewModel { Success = false, message = "Không tìm thấy máy in." };
+                return new ResultViewModel { message = "Không tìm thấy máy in." };
             }
 
             printerToUpdate.Brand = brand;
@@ -94,7 +94,7 @@ namespace HCMUT_SSPS.Repositories
 
             await _dbContext.SaveChangesAsync();
 
-            return new ResultViewModel { Success = true, message = "Máy in được cập nhật thành công." };
+            return new ResultViewModel { message = "Máy in được cập nhật thành công." };
         }
 
         public async Task<ResultViewModel> DeletePrinter(Guid id)
@@ -103,13 +103,13 @@ namespace HCMUT_SSPS.Repositories
 
             if (printerToDelete == null)
             {
-                return new ResultViewModel { Success = false, message = "Không tìm thấy máy in." };
+                return new ResultViewModel { message = "Không tìm thấy máy in." };
             }
 
             _dbContext.TblPrinters.Remove(printerToDelete);
             await _dbContext.SaveChangesAsync();
 
-            return new ResultViewModel { Success = true, message = "Máy in được xóa thành công." };
+            return new ResultViewModel { message = "Máy in được xóa thành công." };
         }
     }
 }
