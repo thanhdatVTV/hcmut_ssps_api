@@ -36,10 +36,11 @@ namespace HCMUT_SSPS.Repository
                 lstUserViewModel.TotalPages = lstUserViewModel.Total / per_page;
 
                 var results = query.Select(u => new ResponseUserModel
-                {
+                {   
+                    CodeId = u.CodeId,
                     LastName = u.LastName,
                     FirstName = u.FirstName,
-                    Fullname = u.FullName,
+                    FullName = u.FullName,
                     DateOfBirth = u.DateOfBirth,
                     Type = (int)u.Type,
                     CourseName = u.CourseName,

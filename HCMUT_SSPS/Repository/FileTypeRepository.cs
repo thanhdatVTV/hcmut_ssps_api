@@ -29,6 +29,7 @@ namespace HCMUT_SSPS.Repository
 
                 var results = query.Select(u => new ResponseFileTypeModel
                 {
+                    Id = u.Id,
                     TypeName = u.TypeName
                 }).ToList();
 
@@ -60,6 +61,8 @@ namespace HCMUT_SSPS.Repository
                 var fileType = await _context.TblFileTypes.Where(d => d.Id == id).FirstOrDefaultAsync();
 
                 fileType.TypeName = typeName;
+                fileType.UserUpdated = id;
+                fileType.DateUpdated = DateTime.Now;
                 await _context.SaveChangesAsync();
                 model.response = fileType;
             }

@@ -21,6 +21,7 @@ namespace HCMUT_SSPS.Controllers
         }
 
         [HttpGet]
+        [Route("login")]
         public async Task<IActionResult> Login(string userName, string passWord)
         {
             ResultViewModel resultViewModel = new ResultViewModel();

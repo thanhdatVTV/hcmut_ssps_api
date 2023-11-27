@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFileTypeRepository, FileTypeRepository>();
 builder.Services.AddScoped<IPageSizeRepository, PageSizeRepository>();
+builder.Services.AddScoped<IPrinterRepository, PrinterRepository>();
 builder.Services.AddCors(p => p.AddPolicy("MyCors", build =>
 {
     //build.WithOrigins("http://localhost:3000/");

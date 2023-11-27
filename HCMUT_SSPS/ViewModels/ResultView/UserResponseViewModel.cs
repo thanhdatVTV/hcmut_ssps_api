@@ -10,16 +10,17 @@
     }
     public class ResponseUserModel
     {
+        public string CodeId { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public string Fullname { get; set; }
+        public string FullName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public int Type { get; set; }
         //Teacher
-        public string TeacherId { get; set; }
+        //public string TeacherId { get; set; }
         public string CourseName { get; set; }
         //Sudent
         public string FacultyName { get; set; }
-        public string StudentId { get; set; }
+        //public string StudentId { get; set; }
     }
 }

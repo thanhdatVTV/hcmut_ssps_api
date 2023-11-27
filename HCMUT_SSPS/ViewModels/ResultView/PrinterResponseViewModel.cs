@@ -1,16 +1,20 @@
 ﻿namespace HCMUT_SSPS.ViewModels.ResultView
 {
-    public class FileTypeResponseViewModel
+    public class PrinterResponseViewModel
     {
-        public List<ResponseFileTypeModel> FileTypes { get; set; }
+        public List<ResponsePrinterModel> Printers { get; set; }
         public int Page { get; set; }    //trang hien tai
         public int PerPage { get; set; }   //so item cua moi trang
         public int Total { get; set; }     // ton so record
         public int TotalPages { get; set; }  //tong so trang
     }
-    public class ResponseFileTypeModel
+    public class ResponsePrinterModel
     {
         public Guid Id { get; set; }
-        public string? TypeName { get; set; }
+        public string? Brand { get; set; }
+
+        public string? PrinterModel { get; set; }
+
+        public string? Description { get; set; }
     }
 }
