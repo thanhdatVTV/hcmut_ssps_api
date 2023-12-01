@@ -27,7 +27,7 @@ namespace HCMUT_SSPS.Controllers
             ResultViewModel resultViewModel = new ResultViewModel();
 
             //string apiUrl = "https://localhost:44398/api/User/get-by-id?userName=dat.nguyen2233167&passWord=123456";
-            string apiUrl = "https://localhost:44398/api/User/get-by-id?userName=" + userName + "&passWord=" + passWord;
+            string apiUrl = "https://localhost:7017/api/User/get-by-id?userName=" + userName + "&passWord=" + passWord;
 
             using (HttpClient client = new HttpClient())
             {
@@ -39,10 +39,19 @@ namespace HCMUT_SSPS.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     string result = await response.Content.ReadAsStringAsync();
-                    UserResponseViewModel userResponse = JsonConvert.DeserializeObject<UserResponseViewModel>(result);
-                    resultViewModel.status = 1;
-                    resultViewModel.message = "thanh cong";
-                    resultViewModel.response = userResponse;
+                    ResultViewModel userResponse = JsonConvert.DeserializeObject<ResultViewModel>(result);
+                    if(userResponse.status == 1)
+                    {
+                        resultViewModel.status = 1;
+                        resultViewModel.message = "thanh cong";
+                        resultViewModel.response = userResponse;
+                    }
+                    else
+                    {
+                        resultViewModel.status = 0;
+                        resultViewModel.message = "That bai";
+                        resultViewModel.response = userResponse;
+                    }
                     Console.WriteLine(result);
                 }
                 else
