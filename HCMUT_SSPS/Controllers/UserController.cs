@@ -45,6 +45,23 @@ namespace HCMUT_SSPS.Controllers
                         resultViewModel.status = 1;
                         resultViewModel.message = "thanh cong";
                         resultViewModel.response = userResponse;
+
+                        //Them user vào data base
+                        ResponseUserModel userVM = JsonConvert.DeserializeObject<ResponseUserModel>(userResponse.response.ToString());
+                        if (userVM != null)
+                        {
+                            string codeId = userVM.Type == 0 ? userVM.StudentId : userVM.TeacherId;
+                            string lastName = userVM.LastName;
+                            string firstName = userVM.FirstName;
+                            string fullName = userVM.FullName;
+                            int facultyId = userVM.FacultyId;
+                            string FacultyName = userVM.FacultyName;
+                            int CourseId = userVM.CourseId;
+                            string CourseName = userVM.CourseName;
+                            DateTime? DayOfBirth = userVM.DateOfBirth;
+                            int type = userVM.Type;
+                            await _userRepository.CreateUser(codeId, lastName, firstName, fullName, facultyId, FacultyName, CourseId, CourseName, DayOfBirth, type);
+                        }
                     }
                     else
                     {
@@ -79,7 +96,7 @@ namespace HCMUT_SSPS.Controllers
 
         [HttpPost]
         [Route("create-user")]
-        public async Task<IActionResult> CreateUser(string codeId, string lastName, string firstName, string fullName, int facultyId, string FacultyName, int CourseId, string CourseName, DateTime DayOfBirth, int type)
+        public async Task<IActionResult> CreateUser(string codeId, string lastName, string firstName, string fullName, int facultyId, string FacultyName, int CourseId, string CourseName, DateTime? DayOfBirth, int type)
         {
             ResultViewModel Result = new ResultViewModel();
             //_logger.LogInformation($"Create customers");

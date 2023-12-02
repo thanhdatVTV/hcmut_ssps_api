@@ -17,10 +17,12 @@
         public DateTime? DateOfBirth { get; set; }
         public int Type { get; set; }
         //Teacher
-        //public string TeacherId { get; set; }
+        public string TeacherId { get; set; }
+        public int CourseId { get; set; }
         public string CourseName { get; set; }
         //Sudent
+        public int FacultyId { get; set; }
         public string FacultyName { get; set; }
-        //public string StudentId { get; set; }
+        public string StudentId { get; set; }
     }
 }

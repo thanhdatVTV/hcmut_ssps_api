@@ -83,35 +83,45 @@ namespace HCMUT_SSPS.Repository
             return model;
         }
 
-        public async Task<ResultViewModel> CreateUser(string codeId, string lastName, string firstName, string fullName, int facultyId, string facultyName, int courseId, string courseName, DateTime dayOfBirth, int type)
+        public async Task<ResultViewModel> CreateUser(string codeId, string lastName, string firstName, string fullName, int facultyId, string facultyName, int courseId, string courseName, DateTime? dayOfBirth, int type)
         {
             ResultViewModel model = new ResultViewModel();
-            try
+            var userCheck = await _context.TblUsers.Where(d => d.CodeId == codeId).FirstOrDefaultAsync();
+            if (userCheck == null)
             {
-                Guid id = Guid.NewGuid();
-                var user = new TblUser();
-                user.Id = id;
-                user.CodeId = codeId;
-                user.LastName = lastName;
-                user.FirstName = firstName;
-                user.FullName = fullName;
-                user.CourseId = courseId;
-                user.CourseName = courseName;
-                user.FacultyId = facultyId;
-                user.FacultyName = facultyName;
-                user.Type = type;
-                user.DateOfBirth = dayOfBirth;
-                user.UserCreated = id;
-                user.DateCreated = DateTime.Now;
-                _context.AddAsync(user);
-                await _context.SaveChangesAsync();
-                model.response = user;
+                try
+                {
+                    Guid id = Guid.NewGuid();
+                    var user = new TblUser();
+                    user.Id = id;
+                    user.CodeId = codeId;
+                    user.LastName = lastName;
+                    user.FirstName = firstName;
+                    user.FullName = fullName;
+                    user.CourseId = courseId;
+                    user.CourseName = courseName;
+                    user.FacultyId = facultyId;
+                    user.FacultyName = facultyName;
+                    user.Type = type;
+                    user.DateOfBirth = dayOfBirth;
+                    user.UserCreated = id;
+                    user.DateCreated = DateTime.Now;
+                    _context.AddAsync(user);
+                    await _context.SaveChangesAsync();
+                    model.response = user;
+                }
+                catch (Exception ex)
+                {
+                    model.status = 0;
+                    model.message = "lỗi phát sinh " + ex.Message.ToString();
+                }
             }
-            catch (Exception ex)
+            else
             {
                 model.status = 0;
-                model.message = "lỗi phát sinh " + ex.Message.ToString();
+                model.message = "User đã tồn tại trong hệ thống";
             }
+            
             return model;
         }
 
@@ -119,5 +129,6 @@ namespace HCMUT_SSPS.Repository
         {
             throw new NotImplementedException();
         }
+
     }
 }
