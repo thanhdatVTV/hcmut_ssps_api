@@ -38,7 +38,7 @@ namespace HCMUT_SSPS.Repository
 
                 listFileTypeViewModel.Page = page;
                 listFileTypeViewModel.PerPage = per_page;
-                listFileTypeViewModel.TotalPages = listFileTypeViewModel.Total / per_page;
+                listFileTypeViewModel.TotalPages = (int)Math.Ceiling((double)listFileTypeViewModel.Total / per_page);
 
                 listFileTypeViewModel.FileTypes = results;
 

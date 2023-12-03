@@ -23,9 +23,10 @@ namespace HCMUT_SSPS.Repository
             try
             {
                 PageSizeResponseViewModel listPageSizeViewModel = new PageSizeResponseViewModel();
+                var queryCount = await _context.TblPageSizes.ToListAsync();
+                listPageSizeViewModel.Total = queryCount.Count();
 
-
-                var query = await _context.TblPageSizes.ToListAsync();
+                var query = await _context.TblPageSizes.Skip(per_page * (page - 1)).Take(per_page).ToListAsync();
 
                 var results = query.Select(u => new ResponsePageSizeModel
                 {
@@ -33,11 +34,9 @@ namespace HCMUT_SSPS.Repository
                     Id = u.Id
                 }).ToList();
 
-
-                listPageSizeViewModel.Total = query.Count();
                 listPageSizeViewModel.Page = page;
                 listPageSizeViewModel.PerPage = per_page;
-                listPageSizeViewModel.TotalPages = listPageSizeViewModel.Total / per_page;
+                listPageSizeViewModel.TotalPages = (int)Math.Ceiling((double)listPageSizeViewModel.Total / per_page);
 
                 listPageSizeViewModel.PageSizes = results;
 

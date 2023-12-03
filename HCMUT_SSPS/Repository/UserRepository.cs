@@ -23,17 +23,19 @@ namespace HCMUT_SSPS.Repository
             {
                 UserResponseViewModel lstUserViewModel = new UserResponseViewModel();
 
-                var query = await _context.TblUsers.ToListAsync();
+                var queryCount = await _context.TblUsers.ToListAsync();
+                lstUserViewModel.Total = queryCount.Count();
+
+                var query = await _context.TblUsers.Skip(per_page * (page - 1)).Take(per_page).ToListAsync();
 
                 if (keyword != null && keyword != "")
                 {
                     query = query.Where(u => u.FullName.Contains(keyword)).ToList();
                 }
 
-                lstUserViewModel.Total = query.Count();
                 lstUserViewModel.Page = page;
                 lstUserViewModel.PerPage = per_page;
-                lstUserViewModel.TotalPages = lstUserViewModel.Total / per_page;
+                lstUserViewModel.TotalPages = (int)Math.Ceiling((double)lstUserViewModel.Total / per_page);
 
                 var results = query.Select(u => new ResponseUserModel
                 {   
