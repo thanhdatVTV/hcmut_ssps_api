@@ -22,10 +22,10 @@ namespace HCMUT_SSPS.Controllers
 
         [HttpGet]
         [Route("get-page-count")]
-        public async Task<IActionResult> GetPageCount(Guid userId)
+        public async Task<IActionResult> GetPageCount(string codeId)
         {
             ResultViewModel Result = new ResultViewModel();
-            Result = await _pagePurchaseRepository.GetPageCount(userId);
+            Result = await _pagePurchaseRepository.GetPageCount(codeId);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

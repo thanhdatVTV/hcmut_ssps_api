@@ -16,26 +16,27 @@ namespace HCMUT_SSPS.Repository
 
         
 
-        public async Task<ResultViewModel> GetPageCount(Guid userId)
+        public async Task<ResultViewModel> GetPageCount(string codeId)
         {
             ResultViewModel model = new ResultViewModel();
 
             try
             {
-
+                var userId = await _context.TblUsers.Where(d => d.CodeId == codeId).Select(d => d.Id).FirstOrDefaultAsync();
                 var pagePurchase = await _context.TblPagePurchases.Where(d => d.UserId == userId).FirstOrDefaultAsync();
 
+                if(pagePurchase != null) {
+                    ResponsePagePurchaseModel PagePurchaseViewModel = new ResponsePagePurchaseModel()
+                    {
+                        UserId = pagePurchase.UserId,
+                        PurchaseDate = pagePurchase.PurchaseDate,
+                        PageCount = pagePurchase.PageCount,
+                        PaymentStatus = pagePurchase.PaymentStatus,
 
-                ResponsePagePurchaseModel PagePurchaseViewModel = new ResponsePagePurchaseModel()
-                {
-                    UserId = pagePurchase.UserId,
-                    PurchaseDate = pagePurchase.PurchaseDate,
-                    PageCount = pagePurchase.PageCount,
-                    PaymentStatus = pagePurchase.PaymentStatus,
-
-                };
-
+                    };
                 model.response = PagePurchaseViewModel;
+                }
+
 
             }
             catch (Exception ex)
@@ -74,6 +75,7 @@ namespace HCMUT_SSPS.Repository
             try
             {
                 var pagePurchase = new TblPagePurchase();
+                pagePurchase.UserId = userId;
                 pagePurchase.PageCount = pageCount;
                 pagePurchase.UserCreated = userId;
                 pagePurchase.DateCreated = DateTime.Now;
