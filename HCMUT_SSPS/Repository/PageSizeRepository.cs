@@ -23,10 +23,10 @@ namespace HCMUT_SSPS.Repository
             try
             {
                 PageSizeResponseViewModel listPageSizeViewModel = new PageSizeResponseViewModel();
-                var queryCount = await _context.TblPageSizes.ToListAsync();
+                var queryCount = await _context.TblPageSizes.Where(d => d.IsDelete != true).ToListAsync();
                 listPageSizeViewModel.Total = queryCount.Count();
 
-                var query = await _context.TblPageSizes.Skip(per_page * (page - 1)).Take(per_page).ToListAsync();
+                var query = await _context.TblPageSizes.Where(d => d.IsDelete != true).Skip(per_page * (page - 1)).Take(per_page).ToListAsync();
 
                 var results = query.Select(u => new ResponsePageSizeModel
                 {

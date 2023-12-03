@@ -24,10 +24,10 @@ namespace HCMUT_SSPS.Repository
             {
                 FileTypeResponseViewModel listFileTypeViewModel = new FileTypeResponseViewModel();
 
-                var queryCount = await _context.TblFileTypes.ToListAsync();
+                var queryCount = await _context.TblFileTypes.Where(d => d.IsDelete != true).ToListAsync();
                 listFileTypeViewModel.Total = queryCount.Count();
 
-                var query = await _context.TblFileTypes.Skip(per_page * (page - 1)).Take(per_page).ToListAsync();
+                var query = await _context.TblFileTypes.Where(d => d.IsDelete != true).Skip(per_page * (page - 1)).Take(per_page).ToListAsync();
                 //query = query.Skip(per_page * (page - 1)).Take(per_page).ToLis;
 
                 var results = query.Select(u => new ResponseFileTypeModel

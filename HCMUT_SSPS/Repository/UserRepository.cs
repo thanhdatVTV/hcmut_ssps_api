@@ -23,10 +23,10 @@ namespace HCMUT_SSPS.Repository
             {
                 UserResponseViewModel lstUserViewModel = new UserResponseViewModel();
 
-                var queryCount = await _context.TblUsers.ToListAsync();
+                var queryCount = await _context.TblUsers.Where(d => d.IsDelete != true).ToListAsync();
                 lstUserViewModel.Total = queryCount.Count();
 
-                var query = await _context.TblUsers.Skip(per_page * (page - 1)).Take(per_page).ToListAsync();
+                var query = await _context.TblUsers.Where(d => d.IsDelete != true).Skip(per_page * (page - 1)).Take(per_page).ToListAsync();
 
                 if (keyword != null && keyword != "")
                 {

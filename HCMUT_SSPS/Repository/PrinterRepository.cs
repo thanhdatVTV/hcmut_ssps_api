@@ -24,10 +24,10 @@ namespace HCMUT_SSPS.Repository
             {
                 PrinterResponseViewModel listPrinterViewModel = new PrinterResponseViewModel();
 
-                var queryCount = await _context.TblPrinters.ToListAsync();
+                var queryCount = await _context.TblPrinters.Where(d => d.IsDelete != true).ToListAsync();
                 listPrinterViewModel.Total = queryCount.Count();
 
-                var query = await _context.TblPrinters.Skip(per_page * (page - 1)).Take(per_page).ToListAsync();
+                var query = await _context.TblPrinters.Where(d => d.IsDelete != true).Skip(per_page * (page - 1)).Take(per_page).ToListAsync();
 
                 var results = query.Select(u => new ResponsePrinterModel
                 {
