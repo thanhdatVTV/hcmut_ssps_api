@@ -48,15 +48,15 @@ namespace HCMUT_SSPS.Repository
             return model;
         }
 
-        public async Task<ResultViewModel> UpdatePageCount(Guid userId, int pageCount)
+        public async Task<ResultViewModel> UpdatePageCount(string codeId, int pageCount)
         {
             ResultViewModel model = new ResultViewModel();
             try
             {
+                var userId = await _context.TblUsers.Where(d => d.CodeId == codeId).Select(d => d.Id).FirstOrDefaultAsync();
                 var pagePurchase = await _context.TblPagePurchases.Where(d => d.UserId == userId).FirstOrDefaultAsync();
 
                 pagePurchase.PageCount = pageCount;
-                pagePurchase.UserUpdated = userId;
                 pagePurchase.DateUpdated = DateTime.Now;
                 await _context.SaveChangesAsync();
                 model.response = pagePurchase;

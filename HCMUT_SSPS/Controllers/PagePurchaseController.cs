@@ -45,11 +45,11 @@ namespace HCMUT_SSPS.Controllers
 
         [HttpPost]
         [Route("update-page-count")]
-        public async Task<IActionResult> UpdatePageCount(Guid userId, int pageCount)
+        public async Task<IActionResult> UpdatePageCount(string codeId, int pageCount)
         {
             ResultViewModel Result = new ResultViewModel();
             //_logger.LogInformation($"Create customers");
-            Result = await _pagePurchaseRepository.UpdatePageCount(userId, pageCount);
+            Result = await _pagePurchaseRepository.UpdatePageCount(codeId, pageCount);
             return Ok(Result);
         }
     }
