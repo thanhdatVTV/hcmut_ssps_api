@@ -19,6 +19,8 @@ public partial class HcmutSspsContext : DbContext
 
     public virtual DbSet<TblLogLogin> TblLogLogins { get; set; }
 
+    public virtual DbSet<TblPagePurchase> TblPagePurchases { get; set; }
+
     public virtual DbSet<TblPageSize> TblPageSizes { get; set; }
 
     public virtual DbSet<TblPrinter> TblPrinters { get; set; }
@@ -37,7 +39,7 @@ public partial class HcmutSspsContext : DbContext
     {
         modelBuilder.Entity<TblFileType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tbl_File__3214EC0723AB1C91");
+            entity.HasKey(e => e.Id).HasName("PK__tbl_File__3214EC07EDE15279");
 
             entity.ToTable("tbl_FileType");
 
@@ -56,6 +58,17 @@ public partial class HcmutSspsContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.DateCreated).HasColumnType("datetime");
             entity.Property(e => e.DateUpdated).HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<TblPagePurchase>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__tbl_Page__3214EC07BD70290B");
+
+            entity.ToTable("tbl_PagePurchase");
+
+            entity.Property(e => e.DateCreated).HasColumnType("datetime");
+            entity.Property(e => e.DateUpdated).HasColumnType("datetime");
+            entity.Property(e => e.PurchaseDate).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<TblPageSize>(entity =>
