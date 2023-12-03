@@ -42,9 +42,7 @@ namespace HCMUT_SSPS.Controllers
                     ResultViewModel userResponse = JsonConvert.DeserializeObject<ResultViewModel>(result);
                     if(userResponse.status == 1)
                     {
-                        resultViewModel.status = 1;
-                        resultViewModel.message = "thanh cong";
-                        resultViewModel.response = userResponse;
+                        
 
                         //Them user vào data base
                         ResponseUserModel userVM = JsonConvert.DeserializeObject<ResponseUserModel>(userResponse.response.ToString());
@@ -62,12 +60,15 @@ namespace HCMUT_SSPS.Controllers
                             int type = userVM.Type;
                             await _userRepository.CreateUser(codeId, lastName, firstName, fullName, facultyId, FacultyName, CourseId, CourseName, DayOfBirth, type);
                         }
+                        resultViewModel.status = 1;
+                        resultViewModel.message = "thanh cong";
+                        resultViewModel.response = userVM;
                     }
                     else
                     {
                         resultViewModel.status = 0;
                         resultViewModel.message = "That bai";
-                        resultViewModel.response = userResponse;
+                        resultViewModel.response = "";
                     }
                     Console.WriteLine(result);
                 }
