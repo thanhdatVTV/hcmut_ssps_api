@@ -109,7 +109,7 @@ namespace HCMUT_SSPS.Repository
             catch (Exception ex)
             {
                 model.status = 0;
-                model.message = "lỗi phát sinh " + ex.Message.ToString();
+                model.message = "lỗi phát sinh ahihi" + ex.Message.ToString();
             }
             return model;
         }
